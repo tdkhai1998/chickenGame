@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_hellojavascript" default="compile.module.hellojavascript">
+  <dirname property="module.hellojavascript.basedir" file="${ant.file.module_hellojavascript}"/>
+  
+  <property name="module.jdk.home.hellojavascript" value=""/>
+  <property name="module.jdk.bin.hellojavascript" value=""/>
+  <property name="module.jdk.classpath.hellojavascript" value=""/>
+  
+  <property name="compiler.args.hellojavascript" value="-encoding UTF-8 -source 1.3 ${compiler.args}"/>
+  
+  <property name="hellojavascript.output.dir" value="undefined"/>
+  <property name="hellojavascript.testoutput.dir" value="undefined"/>
+  
+  <path id="hellojavascript.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="hellojavascript.module.production.classpath"/>
+  
+  <path id="hellojavascript.runtime.production.module.classpath"/>
+  
+  <path id="hellojavascript.module.classpath"/>
+  
+  <path id="hellojavascript.runtime.module.classpath"/>
+  
+  
+  <patternset id="excluded.from.module.hellojavascript">
+    <patternset refid="ignored.files"/>
+    <exclude name="frameworks/runtime-src/**"/>
+    <exclude name="frameworks/runtime-src/Classes/**"/>
+    <exclude name="frameworks/runtime-src/Classes/ui/**"/>
+    <exclude name="frameworks/runtime-src/Classes/update/**"/>
+    <exclude name="frameworks/runtime-src/Classes/ide-support/**"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.hellojavascript">
+    <patternset refid="excluded.from.module.hellojavascript"/>
+  </patternset>
+  
+  <path id="hellojavascript.module.sourcepath">
+    <dirset dir="${module.hellojavascript.basedir}/../../PlayGround">
+      <include name="PlayGround"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.hellojavascript" depends="compile.module.hellojavascript.production,compile.module.hellojavascript.tests" description="Compile module HelloJavascript"/>
+  
+  <target name="compile.module.hellojavascript.production" depends="register.custom.compilers" description="Compile module HelloJavascript; production classes">
+    <mkdir dir="${hellojavascript.output.dir}"/>
+    <javac2 destdir="${hellojavascript.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.hellojavascript}/javac">
+      <compilerarg line="${compiler.args.hellojavascript}"/>
+      <bootclasspath refid="hellojavascript.module.bootclasspath"/>
+      <classpath refid="hellojavascript.module.production.classpath"/>
+      <src refid="hellojavascript.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.hellojavascript"/>
+    </javac2>
+    
+    <copy todir="${hellojavascript.output.dir}">
+      <fileset dir="${module.hellojavascript.basedir}">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.hellojavascript.tests" depends="register.custom.compilers,compile.module.hellojavascript.production" description="compile module HelloJavascript; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.hellojavascript" description="cleanup module">
+    <delete dir="${hellojavascript.output.dir}"/>
+    <delete dir="${hellojavascript.testoutput.dir}"/>
+  </target>
+</project>

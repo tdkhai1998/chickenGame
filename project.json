@@ -1,0 +1,25 @@
+{
+  "debugMode": 1,
+  "showFPS": true,
+  "frameRate": 60,
+  "id": "gameCanvas",
+  "renderMode": 0,
+  "engineDir": "../../frameworks/cocos2d-html5",
+  "modules": [
+    "cocos2d"
+  ],
+  "jsList": [
+    "src/khaitd/UI/button.js",
+    "src/khaitd/GameLayer.js",
+    "src/khaitd/Resource/res.js",
+    "src/khaitd/characters/chicken.js",
+    "src/khaitd/characters/chicken2.js",
+    "src/khaitd/characters/spaceship.js",
+    "src/khaitd/characters/bullet.js",
+    "src/khaitd/tool.js",
+    "src/khaitd/Explosion.js",
+    "src/khaitd/const.js",
+    "src/khaitd/MenuLayer.js",
+    "src/khaitd/Gift.js"
+  ]
+}
